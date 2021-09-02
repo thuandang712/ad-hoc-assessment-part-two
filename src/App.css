@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+
+.container {
+  width: 50%;
+  margin: auto;
+}
+
+.user {
+  margin: 20px 0;
+  border: 1px solid black;
+}
+
+.show-address-btn:hover {
+  cursor: pointer;
+}

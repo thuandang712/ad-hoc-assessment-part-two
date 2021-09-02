@@ -1,21 +1,48 @@
-import logo from './logo.svg';
+import React from 'react'
+import axios from 'axios'
+
+import Loading from './components/Loading'
+import Users from './components/Users'
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      {/* Make state of loading, users, showAdress */}
-      {/* Make componentdidmount that reaches out to 
-        https://jsonplaceholder.typicode.com/users
-      */}
-    {/* Set the users state with data you get back */}
-    {/* Set loading to true while data is being fetched and render loading component */}
-    {/* when loading is false (conditional rendering) render the users component that loops through props of users and renders userItem component */}
-    {/* Look at data you get back. Notice what you have access to */}
-    {/* create a button in the users component that allows change in the showAddress(boolean) state */}
-      {/* If the showaddress boolean is true, show all addresses of users */}
-    </div>
-  );
-}
+
+class App extends React.Component {
+  
+  state = {
+    loading: false, 
+    users: [],
+    showAddress: false
+  }
+
+  async componentDidMount() {
+    this.setState({loading: true})
+    const res = await axios.get('https://jsonplaceholder.typicode.com/users')
+    this.setState({users: res.data})
+    this.setState({loading: false})
+  }
+
+  render() {
+    const {loading, users, showAddress} = this.state
+
+    const showAddressInfo = () => {
+      if (showAddress) {
+        this.setState({showAddress: false})
+      } else {
+        this.setState({showAddress: true})
+      }
+    }
+
+    if (loading) {
+      return <Loading />
+    }
+
+    return (
+      <div className="App">
+        <Users users={users} showAddressInfo={showAddressInfo} showAddress={showAddress}/>
+      </div>
+    );
+  }
+
+  }
 
 export default App;
