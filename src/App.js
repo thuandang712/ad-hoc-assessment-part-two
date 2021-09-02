@@ -25,11 +25,7 @@ class App extends React.Component {
     const {loading, users, showAddress} = this.state
 
     const showAddressInfo = () => {
-      if (showAddress) {
-        this.setState({showAddress: false})
-      } else {
-        this.setState({showAddress: true})
-      }
+      showAddress ? this.setState({showAddress: false}) : this.setState({showAddress: true})
     }
 
     if (loading) {
@@ -42,7 +38,6 @@ class App extends React.Component {
       </div>
     );
   }
-
-  }
+}
 
 export default App;
